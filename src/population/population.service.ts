@@ -3,6 +3,10 @@ import { PopulationDto } from './population';
 
 @Injectable()
 export class PopulationService {
+    /**
+     * Génère une matrice en fonction d'une taille avec tous les indexes à false
+     * @param size taille de la matrice
+     */
     public generatePop = (size) => {
         let pop: any[] = []
         for (let i = 0; i < size; i++) {
@@ -17,6 +21,10 @@ export class PopulationService {
         return new PopulationDto(0, Math.pow(size, 3), pop)
     }
 
+    /**
+     * Passe aléatoirement un index de la matrice à true
+     * @param popDto objet contenant la matrice
+     */
     public patientZero = (popDto: PopulationDto) => {
         const randInt = (max: number) => {
             return Math.floor(Math.random() * Math.floor(max))
@@ -27,7 +35,10 @@ export class PopulationService {
         return popDto
     }
 
-
+    /**
+     * Renvoie un tableau contenant un tableau avec les indexes de la matrice à true
+     * @param popDto objet contenant la matrice
+     */
     public getInfected = (popDto: PopulationDto) => {
         const infected: number[][] = []
         let human: number[] = []

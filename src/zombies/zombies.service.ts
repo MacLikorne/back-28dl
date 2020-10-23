@@ -7,6 +7,11 @@ export class ZombiesService {
 
     constructor(private popService: PopulationService) { }
 
+    /**
+     * Permet de passer les indexes de false à true en fonction des idexes déjà à true et renvoie le nouvel état de la population.
+     * @param targets tableau des indexes de la matrice à false et sui touche un index à true
+     * @param popDto objet contenant la matrice
+     */
     private bite = (targets: number[][], popDto: PopulationDto) => {
         targets.forEach(target => {
             let s: string = "(targets) => targets"
@@ -23,6 +28,11 @@ export class ZombiesService {
         return popDto
     }
 
+    /**
+     * Renvoie un tableau avec les indexes de la matrice à false qui "touche" un index à true
+     * @param infected tableau des indexes de la matrice à true
+     * @param popDto objet contenant la matrice
+     */
     private lookingForMeat = (infected: number[][], popDto: PopulationDto) => {
         const meats: number[][] = []
 
@@ -40,12 +50,16 @@ export class ZombiesService {
         return meats
     }
 
+    /**
+     * Cycle d'infection passant à true tous les indexes à false qui "touchent" un index à true et qui modifie le ratio d'infection. Renvoi le nouvelle état de la population.
+     * @param popDto objet contenant la matrice
+     */
     public infect = (popDto: PopulationDto) => {
         const infected = this.popService.getInfected(popDto)
         const targets = this.lookingForMeat(infected, popDto)
-        const newPop = this.bite(targets, popDto)
-        const infectedCount = this.popService.getInfected(newPop).length
-        newPop.infectedRatio = Math.round(infectedCount * 100 / newPop.size)
-        return newPop
+        popDto = this.bite(targets, popDto)
+        const infectedCount = this.popService.getInfected(popDto).length
+        popDto.infectedRatio = Math.round(infectedCount * 100 / popDto.size)
+        return popDto
     }
 }
