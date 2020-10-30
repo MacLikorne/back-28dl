@@ -11,7 +11,7 @@ export class PopulationController {
      * Appel API permettant de générer la matrice
      * @param size taille de la matrice
      */
-    @Post(':size')
+    @Get(':size')
     genPopulation(@Param('size') size: Number) {
         return this.popService.generatePop(size)
     }
