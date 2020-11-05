@@ -14,15 +14,16 @@ export class ZombiesService {
      */
     private bite = (targets: number[][], popDto: PopulationDto) => {
         targets.forEach(target => {
-            let s: string = "(targets) => targets"
-            target.forEach(pos => s += `[${pos}]`)
-            s += "=true";
-            const infect: Function = eval(s);
-            try {
-                infect(popDto.pop)
-            } catch (error) {
-                console.log("Tu mords dans le vide")
-            }
+            let elem = null
+            target.forEach((pos, index) => {
+                if (Array.isArray(popDto.pop[pos]) && index === 0) {
+                    elem = popDto.pop[pos]
+                } else if (Array.isArray(elem[pos])) {
+                    elem = elem[pos]
+                } else if (typeof elem[pos] === 'boolean') {
+                    elem[pos] = true
+                }
+            })
         })
 
         return popDto
