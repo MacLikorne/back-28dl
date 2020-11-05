@@ -44,23 +44,21 @@ export class PopulationService {
         let human: number[] = []
 
         const testHuman = (elem: any) => {
-            if (Array.isArray(elem)) {
-                elem.forEach((newElem, index) => {
-                    if (Array.isArray(newElem)) {
-                        if (elem[0][0][0] !== undefined) {
-                            human[0] = index
-                        } else if (elem[0][0] !== undefined) {
-                            human[1] = index
-                        }
-                        testHuman(newElem)
-                    } else {
-                        human[2] = index
-                        if (newElem) {
-                            infected.push([...human])
-                        }
+            elem.forEach((newElem, index) => {
+                if (Array.isArray(newElem)) {
+                    if (elem[0][0][0] !== undefined) {
+                        human[0] = index
+                    } else if (elem[0][0] !== undefined) {
+                        human[1] = index
                     }
-                })
-            }
+                    testHuman(newElem)
+                } else {
+                    human[2] = index
+                    if (newElem) {
+                        infected.push([...human])
+                    }
+                }
+            })
         }
 
         testHuman(popDto.pop)
