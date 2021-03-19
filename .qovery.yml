@@ -1,0 +1,11 @@
+---
+application:
+  name: "back-28dl"
+  project: "Front full"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-back-28dl"
+  routes:
+  - application_name: "back-28dl"
+    paths:
+    - "/*"
