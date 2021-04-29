@@ -1,7 +1,7 @@
 ---
 application:
   name: "back-28dl"
-  project: "Front full"
+  project: "test2"
   organization: "QoveryCommunity"
 routers:
 - name: "main-back-28dl"
